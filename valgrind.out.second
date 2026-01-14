@@ -1,0 +1,7 @@
+duplicate symbol '_main' in:
+    /private/var/folders/8d/9l2zq4jx3f9b8238njjft_vh0000gn/T/main-4e3d1e.o
+    /private/var/folders/8d/9l2zq4jx3f9b8238njjft_vh0000gn/T/memleak-30d2fb.o
+    /private/var/folders/8d/9l2zq4jx3f9b8238njjft_vh0000gn/T/test_circularlinkedlist-ba0919.o
+ld: 1 duplicate symbols
+clang++: error: linker command failed with exit code 1 (use -v to see invocation)
+./grindit.sh: line 4: valgrind: command not found

@@ -1,14 +1,16 @@
 #include <iostream>
-#include "CircularLinkedList"
+#include <string>
+#include "circularlinkedlist.h"
+
 
 int main() {
-    CircularLinkedList<string> residents({"Laing", "Wilder",  "Frobisher"})
-
+    CircularLinkedList<std::string> residents({"Laing", "Wilder",  "Frobisher"});
+    int k = 1;
     while(residents.size() > 1) {
-        string eaten = residents.removeNext(1);  // k == 1
-        cout << "Eaten: " << eaten << "\n";
+        std::string eaten = residents.removeNext(k);  // k == 1
+        std::cout << "Eaten: " << eaten << "\n";
     }
 
-    string winner = residents.getCurrent();
-    cout << "The winner is " << winner << "!\n";    return 0;
+    std::string winner = residents.getCurrent();
+    std::cout << "The winner is " << winner << "!\n";    return 0;
 }

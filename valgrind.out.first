@@ -1,0 +1,113 @@
+main.cpp:3:10: warning: non-portable path to file '"circularlinkedlist.h"'; specified path differs in case from file name on disk [-Wnonportable-include-path]
+    3 | #include "CircularLinkedList.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~
+      |          "circularlinkedlist.h"
+In file included from main.cpp:3:
+./CircularLinkedList.h:14:15: warning: unused variable 'tempTail' [-Wunused-variable]
+   14 |         Node* tempTail = nullptr;
+      |               ^~~~~~~~
+main.cpp:7:37: note: in instantiation of member function 'CircularLinkedList<std::string>::CircularLinkedList' requested here
+    7 |     CircularLinkedList<std::string> residents({"Laing", "Wilder",  "Frobisher"});
+      |                                     ^
+In file included from main.cpp:3:
+./CircularLinkedList.h:105:30: warning: field 'value' will be initialized after field 'next' [-Wreorder-ctor]
+  105 |         Node(const T& val) : value(val), next(nullptr), prev(nullptr) {}
+      |                              ^~~~~~~~~~  ~~~~~~~~~~~~~  ~~~~~~~~~~~~~
+      |                              next(nullptr) prev(nullptr)value(val)
+./CircularLinkedList.h:17:33: note: in instantiation of member function 'CircularLinkedList<std::string>::Node::Node' requested here
+   17 |             Node* newNode = new Node(item);
+      |                                 ^
+main.cpp:7:37: note: in instantiation of member function 'CircularLinkedList<std::string>::CircularLinkedList' requested here
+    7 |     CircularLinkedList<std::string> residents({"Laing", "Wilder",  "Frobisher"});
+      |                                     ^
+In file included from main.cpp:3:
+./CircularLinkedList.h:34:34: warning: comparison of integers of different signs: 'size_t' (aka 'unsigned long') and 'int' [-Wsign-compare]
+   34 |             for (size_t i = 0; i < size_; ++i) {
+      |                                ~ ^ ~~~~~
+main.cpp:7:37: note: in instantiation of member function 'CircularLinkedList<std::string>::~CircularLinkedList' requested here
+    7 |     CircularLinkedList<std::string> residents({"Laing", "Wilder",  "Frobisher"});
+      |                                     ^
+4 warnings generated.
+In file included from test_circularlinkedlist.cpp:1:
+./circularlinkedlist.h:14:15: warning: unused variable 'tempTail' [-Wunused-variable]
+   14 |         Node* tempTail = nullptr;
+      |               ^~~~~~~~
+test_circularlinkedlist.cpp:18:32: note: in instantiation of member function 'CircularLinkedList<std::string>::CircularLinkedList' requested here
+   18 |     CircularLinkedList<string> residents({"Laing", "Wilder", "Frobisher"});
+      |                                ^
+In file included from test_circularlinkedlist.cpp:1:
+./circularlinkedlist.h:105:30: warning: field 'value' will be initialized after field 'next' [-Wreorder-ctor]
+  105 |         Node(const T& val) : value(val), next(nullptr), prev(nullptr) {}
+      |                              ^~~~~~~~~~  ~~~~~~~~~~~~~  ~~~~~~~~~~~~~
+      |                              next(nullptr) prev(nullptr)value(val)
+./circularlinkedlist.h:17:33: note: in instantiation of member function 'CircularLinkedList<std::string>::Node::Node' requested here
+   17 |             Node* newNode = new Node(item);
+      |                                 ^
+test_circularlinkedlist.cpp:18:32: note: in instantiation of member function 'CircularLinkedList<std::string>::CircularLinkedList' requested here
+   18 |     CircularLinkedList<string> residents({"Laing", "Wilder", "Frobisher"});
+      |                                ^
+In file included from test_circularlinkedlist.cpp:1:
+./circularlinkedlist.h:34:34: warning: comparison of integers of different signs: 'size_t' (aka 'unsigned long') and 'int' [-Wsign-compare]
+   34 |             for (size_t i = 0; i < size_; ++i) {
+      |                                ~ ^ ~~~~~
+test_circularlinkedlist.cpp:18:32: note: in instantiation of member function 'CircularLinkedList<std::string>::~CircularLinkedList' requested here
+   18 |     CircularLinkedList<string> residents({"Laing", "Wilder", "Frobisher"});
+      |                                ^
+In file included from test_circularlinkedlist.cpp:1:
+./circularlinkedlist.h:14:15: warning: unused variable 'tempTail' [-Wunused-variable]
+   14 |         Node* tempTail = nullptr;
+      |               ^~~~~~~~
+test_circularlinkedlist.cpp:76:29: note: in instantiation of member function 'CircularLinkedList<int>::CircularLinkedList' requested here
+   76 |     CircularLinkedList<int> list({42});
+      |                             ^
+In file included from test_circularlinkedlist.cpp:1:
+./circularlinkedlist.h:105:30: warning: field 'value' will be initialized after field 'next' [-Wreorder-ctor]
+  105 |         Node(const T& val) : value(val), next(nullptr), prev(nullptr) {}
+      |                              ^~~~~~~~~~  ~~~~~~~~~~~~~  ~~~~~~~~~~~~~
+      |                              next(nullptr) prev(nullptr)value(val)
+./circularlinkedlist.h:17:33: note: in instantiation of member function 'CircularLinkedList<int>::Node::Node' requested here
+   17 |             Node* newNode = new Node(item);
+      |                                 ^
+test_circularlinkedlist.cpp:76:29: note: in instantiation of member function 'CircularLinkedList<int>::CircularLinkedList' requested here
+   76 |     CircularLinkedList<int> list({42});
+      |                             ^
+In file included from test_circularlinkedlist.cpp:1:
+./circularlinkedlist.h:34:34: warning: comparison of integers of different signs: 'size_t' (aka 'unsigned long') and 'int' [-Wsign-compare]
+   34 |             for (size_t i = 0; i < size_; ++i) {
+      |                                ~ ^ ~~~~~
+test_circularlinkedlist.cpp:76:29: note: in instantiation of member function 'CircularLinkedList<int>::~CircularLinkedList' requested here
+   76 |     CircularLinkedList<int> list({42});
+      |                             ^
+In file included from test_circularlinkedlist.cpp:1:
+./circularlinkedlist.h:14:15: warning: unused variable 'tempTail' [-Wunused-variable]
+   14 |         Node* tempTail = nullptr;
+      |               ^~~~~~~~
+test_circularlinkedlist.cpp:153:30: note: in instantiation of member function 'CircularLinkedList<char>::CircularLinkedList' requested here
+  153 |     CircularLinkedList<char> list({'A', 'B', 'C', 'D', 'E'});
+      |                              ^
+In file included from test_circularlinkedlist.cpp:1:
+./circularlinkedlist.h:105:30: warning: field 'value' will be initialized after field 'next' [-Wreorder-ctor]
+  105 |         Node(const T& val) : value(val), next(nullptr), prev(nullptr) {}
+      |                              ^~~~~~~~~~  ~~~~~~~~~~~~~  ~~~~~~~~~~~~~
+      |                              next(nullptr) prev(nullptr)value(val)
+./circularlinkedlist.h:17:33: note: in instantiation of member function 'CircularLinkedList<char>::Node::Node' requested here
+   17 |             Node* newNode = new Node(item);
+      |                                 ^
+test_circularlinkedlist.cpp:153:30: note: in instantiation of member function 'CircularLinkedList<char>::CircularLinkedList' requested here
+  153 |     CircularLinkedList<char> list({'A', 'B', 'C', 'D', 'E'});
+      |                              ^
+In file included from test_circularlinkedlist.cpp:1:
+./circularlinkedlist.h:34:34: warning: comparison of integers of different signs: 'size_t' (aka 'unsigned long') and 'int' [-Wsign-compare]
+   34 |             for (size_t i = 0; i < size_; ++i) {
+      |                                ~ ^ ~~~~~
+test_circularlinkedlist.cpp:153:30: note: in instantiation of member function 'CircularLinkedList<char>::~CircularLinkedList' requested here
+  153 |     CircularLinkedList<char> list({'A', 'B', 'C', 'D', 'E'});
+      |                              ^
+9 warnings generated.
+duplicate symbol '_main' in:
+    /private/var/folders/8d/9l2zq4jx3f9b8238njjft_vh0000gn/T/main-e7dcd0.o
+    /private/var/folders/8d/9l2zq4jx3f9b8238njjft_vh0000gn/T/memleak-e8d797.o
+    /private/var/folders/8d/9l2zq4jx3f9b8238njjft_vh0000gn/T/test_circularlinkedlist-eb0617.o
+ld: 1 duplicate symbols
+clang++: error: linker command failed with exit code 1 (use -v to see invocation)
+./grindit.sh: line 4: valgrind: command not found
