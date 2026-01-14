@@ -1,2 +1,7 @@
-Wed Jan 14 04:54:27 UTC 2026
-./grindit.sh: line 4: valgrind: command not found
+Wed Jan 14 06:44:56 UTC 2026
+main.cpp:3:10: warning: non-portable path to file '"circularlinkedlist.h"'; specified path differs in case from file name on disk [-Wnonportable-include-path]
+    3 | #include "CircularLinkedList.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~
+      |          "circularlinkedlist.h"
+1 warning generated.
+grindit.sh: line 4: valgrind: command not found
