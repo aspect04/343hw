@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(g++:*)",
+      "Bash(./sales_priority)",
+      "Bash(./test_sales)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
