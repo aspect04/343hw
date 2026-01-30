@@ -1,0 +1,4 @@
+/Users/sundarmaan/343hw/ThePhantomThread/CMakeFiles/ThePhantomThread.dir
+/Users/sundarmaan/343hw/ThePhantomThread/CMakeFiles/tests.dir
+/Users/sundarmaan/343hw/ThePhantomThread/CMakeFiles/edit_cache.dir
+/Users/sundarmaan/343hw/ThePhantomThread/CMakeFiles/rebuild_cache.dir

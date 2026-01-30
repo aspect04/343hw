@@ -6,6 +6,7 @@
 #include <algorithm>
 #include "BitSet.h"
 #include "HuffmanTree.h"
+#include "TestCases.cpp"
 
 using namespace std;
 
@@ -23,7 +24,7 @@ bool compareCodeEntries(const CodeEntry& a, const CodeEntry& b) {
     return a.numBits < b.numBits;
 }
 
-void printCodeTable(const map<char, BitSet>& codes, bool canonical) {
+void printCodeTable(const map<char, BitSet>& codes) {
     vector<CodeEntry> entries;
     for (const auto& [ch, code] : codes) {
         entries.push_back({ch, code.size(), code});
@@ -31,13 +32,7 @@ void printCodeTable(const map<char, BitSet>& codes, bool canonical) {
 
     sort(entries.begin(), entries.end(), compareCodeEntries);
 
-    cout << "\n";
-    if (canonical) {
-        cout << "Canonical Huffman Codes:\n";
-    } else {
-        cout << "Huffman Codes:\n";
-    }
-    cout << "Symbol | Code\n";
+    cout << "\nSymbol | Code\n";
     cout << "-------|----------\n";
 
     for (const auto& entry : entries) {
@@ -55,79 +50,13 @@ void printCodeTable(const map<char, BitSet>& codes, bool canonical) {
     }
 }
 
-void processTextAndEvaluate(const string& passage,
-                           const map<char, int>& expectedCounts,
-                           const map<char, BitSet>& expectedCodes,
-                           const map<char, BitSet>& expectedCanonical,
-                           const BitSet& expectedTextEncoding) {
-    HuffmanTree tree;
-
-    // Step 1: Count frequencies
-    auto frequencies = tree.countFrequencies(passage);
-    cout << "Frequency counting: ";
-    if (frequencies == expectedCounts) {
-        cout << "PASSED\n";
-    } else {
-        cout << "FAILED\n";
+int main(int argc, char* argv[]) {
+    // Check if test flag is passed
+    if (argc > 1 && string(argv[1]) == "--test") {
+        return runAllTests();
     }
 
-    // Step 2: Build tree and generate codes
-    tree.buildTree(frequencies);
-    tree.generateCodes();
-    auto codes = tree.getCodes();
-
-    cout << "Code generation: ";
-    if (codes == expectedCodes) {
-        cout << "PASSED\n";
-    } else {
-        cout << "FAILED\n";
-    }
-
-    // Step 3: Generate canonical codes
-    tree.generateCanonicalCodes();
-    auto canonical = tree.getCanonicalCodes();
-
-    cout << "Canonical codes: ";
-    if (canonical == expectedCanonical) {
-        cout << "PASSED\n";
-    } else {
-        cout << "FAILED\n";
-    }
-
-    // Step 4: Encode text
-    auto encoded = tree.encodeText(passage, true);
-
-    cout << "Text encoding: ";
-    if (encoded.toBinaryString() == expectedTextEncoding.toBinaryString()) {
-        cout << "PASSED\n";
-    } else {
-        cout << "FAILED\n";
-        cout << "Expected: " << expectedTextEncoding.toBinaryString() << "\n";
-        cout << "Got:      " << encoded.toBinaryString() << "\n";
-    }
-}
-
-void testSimple() {
-    cout << "\n========== TESTING SIMPLE CASE ==========\n";
-
-    string passage = "AAAABBBCCCDDEEF";
-    map<char,int> expectedCounts = { {'A', 4}, {'B', 3}, {'C', 3}, {'D',2}, {'E',2}, {'F',1} };
-    map<char,BitSet> expectedCodes = { {'A',BitSet("10")},{'B',BitSet("111")},
-                                       {'C',BitSet("00")},{'D',BitSet("011")},
-                                       {'E',BitSet("110")},{'F',BitSet("010")}};
-
-    map<char,BitSet> expectedCanonical = { {'A',BitSet("00")},{'B',BitSet("100")},
-                                           {'C',BitSet("01")},{'D',BitSet("101")},
-                                           {'E',BitSet("110")},{'F',BitSet("111")}};
-
-    BitSet expectedTextEncoding("00000000100100100010101101101110110111");   // canonical
-
-    processTextAndEvaluate(passage, expectedCounts, expectedCodes, expectedCanonical, expectedTextEncoding);
-}
-
-void processTheRoad() {
-    cout << "\n========== THE ROAD - HUFFMAN ENCODING ==========\n";
-
+    // Assignment output: Process The Road passage
     string passage =
         "Once there were brook trouts in the streams in the mountains. "
         "You could see them standing in the amber current where the white edges of their fins "
@@ -152,8 +81,8 @@ void processTheRoad() {
     // Get canonical codes for output
     auto canonicalCodes = tree.getCanonicalCodes();
 
-    // Print code table
-    printCodeTable(canonicalCodes, true);
+    // Print code table (sorted by code length ASC, symbol ASC)
+    printCodeTable(canonicalCodes);
 
     // Encode the text using canonical codes
     auto encoded = tree.encodeText(passage, true);
@@ -175,19 +104,9 @@ void processTheRoad() {
     int bitsUncompressed = passage.length() * 8;
     double compressionRatio = (double)bitsCompressed / (double)bitsUncompressed;
 
-    cout << "\nCompression Statistics:\n";
-    cout << "Compressed size: " << bitsCompressed << " bits (" << bytesCompressed << " bytes)\n";
+    cout << "\nCompressed size: " << bitsCompressed << " bits (" << bytesCompressed << " bytes)\n";
     cout << "Uncompressed size: " << bitsUncompressed << " bits (" << passage.length() << " bytes)\n";
     cout << "Compression ratio: " << fixed << setprecision(4) << compressionRatio << "\n";
-    cout << "Space savings: " << fixed << setprecision(2) << (1.0 - compressionRatio) * 100 << "%\n";
-}
-
-int main() {
-    // Run the simple test case first
-    testSimple();
-
-    // Process The Road passage
-    processTheRoad();
 
     return 0;
 }

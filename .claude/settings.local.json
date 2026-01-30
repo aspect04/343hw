@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cmake:*)",
+      "Bash(make)",
+      "Bash(./HuffmanCoding)",
+      "Bash(./tests)",
+      "Bash(./TheHotDogFactory)",
+      "Bash(./ThePhantomThread)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

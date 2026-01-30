@@ -797,4 +797,5 @@ CMakeFiles/HuffmanCoding.dir/main.cpp.o: \
   /Users/sundarmaan/343hw/HuffmanCoding/BitSet.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/sstream \
   /Users/sundarmaan/343hw/HuffmanCoding/HuffmanTree.h \
-  /Users/sundarmaan/343hw/HuffmanCoding/HuffmanNode.h
+  /Users/sundarmaan/343hw/HuffmanCoding/HuffmanNode.h \
+  /Users/sundarmaan/343hw/HuffmanCoding/TestCases.cpp

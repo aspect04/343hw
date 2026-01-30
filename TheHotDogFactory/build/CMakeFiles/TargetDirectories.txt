@@ -1,0 +1,4 @@
+/Users/sundarmaan/343hw/TheHotDogFactory/build/CMakeFiles/TheHotDogFactory.dir
+/Users/sundarmaan/343hw/TheHotDogFactory/build/CMakeFiles/tests.dir
+/Users/sundarmaan/343hw/TheHotDogFactory/build/CMakeFiles/edit_cache.dir
+/Users/sundarmaan/343hw/TheHotDogFactory/build/CMakeFiles/rebuild_cache.dir
