@@ -1,6 +1,3 @@
-#ifndef TESTCASES_H
-#define TESTCASES_H
-
 #include <iostream>
 #include <string>
 #include <map>
@@ -219,7 +216,7 @@ void testRepeatedPattern() {
     cout << "  Compression ratio: " << (double)encoded.size() / decoded_size << "\n";
 }
 
-int runAllTests() {
+int main() {
     cout << "\n";
     cout << "╔════════════════════════════════════════════════════╗\n";
     cout << "║          HUFFMAN CODING TEST SUITE                 ║\n";
@@ -241,5 +238,3 @@ int runAllTests() {
 
     return 0;
 }
-
-#endif // TESTCASES_H

@@ -1,0 +1,4 @@
+/Users/sundarmaan/343hw/MidnightSnack/build/CMakeFiles/MidnightSnack.dir
+/Users/sundarmaan/343hw/MidnightSnack/build/CMakeFiles/MidnightSnackTests.dir
+/Users/sundarmaan/343hw/MidnightSnack/build/CMakeFiles/edit_cache.dir
+/Users/sundarmaan/343hw/MidnightSnack/build/CMakeFiles/rebuild_cache.dir

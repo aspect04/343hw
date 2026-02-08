@@ -6,7 +6,6 @@
 #include <algorithm>
 #include "BitSet.h"
 #include "HuffmanTree.h"
-#include "TestCases.cpp"
 
 using namespace std;
 
@@ -50,12 +49,7 @@ void printCodeTable(const map<char, BitSet>& codes) {
     }
 }
 
-int main(int argc, char* argv[]) {
-    // Check if test flag is passed
-    if (argc > 1 && string(argv[1]) == "--test") {
-        return runAllTests();
-    }
-
+int main() {
     // Assignment output: Process The Road passage
     string passage =
         "Once there were brook trouts in the streams in the mountains. "
