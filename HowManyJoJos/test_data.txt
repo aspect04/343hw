@@ -1,0 +1,12 @@
+Olivia,F,100
+John,M,200
+Joanna,F,150
+Bob,M,50
+Joyce,F,75
+Jordan,F,125
+Jack,M,300
+Josephine,F,90
+Amy,F,80
+Jo,F,60
+Jennifer,F,110
+Joannie,F,45
