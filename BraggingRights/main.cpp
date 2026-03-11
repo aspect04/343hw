@@ -5,9 +5,12 @@
 #include <vector>
 #include <cmath>
 
-const int NUM_BUCKETS = 16;
+extern const int NUM_BUCKETS = 16;
 const double SIGNIFICANCE_LEVEL = 0.05;
 const double CHI_SQUARE_CRITICAL_VALUE = 24.996; // For df=15, alpha=0.05
+
+// Forward declaration of test suite from test.cpp
+int testmain();
 
 // Hash function for strings
 unsigned long hashFunction(const std::string& str) {
@@ -100,5 +103,9 @@ int main() {
         std::cout << "(Failed to reject the null hypothesis at 0.05 significance level)\n";
     }
 
+    // Run the test suite
+    std::cout << "\n\n";
+
+    testmain();
     return 0;
 }

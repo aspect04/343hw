@@ -6,24 +6,11 @@
 #include <cmath>
 #include <cassert>
 
-const int NUM_BUCKETS = 16;
+extern const int NUM_BUCKETS;
 
-// Same hash function from main.cpp
-unsigned long hashFunction(const std::string& str) {
-    unsigned long hash = 5381;
-    for (char c : str) {
-        hash = ((hash << 5) + hash) + c;
-    }
-    return hash;
-}
-
-// Same extract function from main.cpp
-std::string extractName(const std::string& line) {
-    std::stringstream ss(line);
-    std::string name;
-    std::getline(ss, name, ',');
-    return name;
-}
+// Forward declarations of functions from main.cpp
+unsigned long hashFunction(const std::string& str);
+std::string extractName(const std::string& line);
 
 // Calculate chi-square statistic
 double calculateChiSquare(const std::vector<int>& bucketCounts, int totalNames) {
@@ -209,7 +196,7 @@ void testCaseSensitivity() {
     std::cout << "PASSED\n";
 }
 
-int main() {
+int testmain() {
     std::cout << "===========================================\n";
     std::cout << "   BraggingRights Test Suite\n";
     std::cout << "===========================================\n\n";
@@ -258,7 +245,7 @@ int main() {
     std::cout << "===========================================\n";
 
     if (testsPassed == totalTests) {
-        std::cout << "\n✓ All tests passed! Your implementation is solid.\n";
+        std::cout << "\n✓ All tests passed!\n";
         return 0;
     } else {
         std::cout << "\n✗ Some tests failed.\n";
