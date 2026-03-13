@@ -3,6 +3,7 @@
 
 #include "BitSet.h"
 #include "HuffmanNode.h"
+#include "Frequency.h"
 #include <map>
 #include <queue>
 #include <vector>
@@ -36,22 +37,36 @@ public:
 
     // Step 1: Count character frequencies
     std::map<char, int> countFrequencies(const std::string& text) {
-        std::map<char, int> frequencies;
-        for (char c : text) {
-            frequencies[c]++;
-        }
-        return frequencies;
+        return ::countFrequencies(text);
     }
 
     // Step 2: Build Huffman tree
     void buildTree(const std::map<char, int>& frequencies) {
+        root = nullptr;
+        codes.clear();
+        canonicalCodes.clear();
+        nextTiebreaker = 0;
+
+        if (frequencies.empty()) return;
+
         std::priority_queue<std::shared_ptr<HuffmanNode>,
                           std::vector<std::shared_ptr<HuffmanNode>>,
                           HuffmanNodeComparator> pq;
 
         // Populate priority queue in map order (sorted by character)
-        for (const auto& [ch, freq] : frequencies) {
+        for (const auto& pair : frequencies) {
+            char ch = pair.first;
+            int freq = pair.second;
             pq.push(std::make_shared<HuffmanNode>(ch, freq, nextTiebreaker++));
+        }
+
+        // Handle single character case
+        if (pq.size() == 1) {
+            auto lone = pq.top();
+            pq.pop();
+            // Create a dummy parent so the character has at least one bit (0)
+            root = std::make_shared<HuffmanNode>(lone->frequency, nextTiebreaker++, lone, nullptr);
+            return;
         }
 
         // Build tree
@@ -72,19 +87,23 @@ public:
     // Step 3: Generate codes
     void generateCodes() {
         codes.clear();
+        if (!root) return;
         BitSet empty;
         generateCodes(root, empty);
     }
 
     // Step 4: Generate canonical codes
     void generateCanonicalCodes() {
+        if (codes.empty()) return;
         struct CodeInfo {
             char character;
             int numBits;
         };
 
         std::vector<CodeInfo> codeInfo;
-        for (const auto& [ch, bitset] : codes) {
+        for (const auto& pair : codes) {
+            char ch = pair.first;
+            const BitSet& bitset = pair.second;
             codeInfo.push_back({ch, bitset.size()});
         }
 
@@ -120,11 +139,52 @@ public:
     BitSet encodeText(const std::string& text, bool useCanonical = false) {
         BitSet encoded;
         const auto& codesToUse = useCanonical ? canonicalCodes : codes;
+        if (codesToUse.empty() && !text.empty()) return encoded; // Should not happen if tree built
 
         for (char c : text) {
             encoded.append(codesToUse.at(c));
         }
         return encoded;
+    }
+
+    // Step 6: Decode text (Round-trip)
+    std::string decodeText(const BitSet& encoded, bool useCanonical = false) {
+        if (!root || encoded.size() == 0) return "";
+
+        std::string decoded = "";
+        
+        if (useCanonical) {
+            // To decode canonical, we map bitsets back to characters
+            std::map<std::string, char> reverseMap;
+            for (const auto& pair : canonicalCodes) {
+                reverseMap[pair.second.toBinaryString()] = pair.first;
+            }
+
+            std::string currentBits = "";
+            for (int i = 0; i < encoded.size(); i++) {
+                currentBits += encoded.getBit(i) ? '1' : '0';
+                if (reverseMap.count(currentBits)) {
+                    decoded += reverseMap[currentBits];
+                    currentBits = "";
+                }
+            }
+        } else {
+            // Standard decoding using tree traversal
+            std::shared_ptr<HuffmanNode> current = root;
+            for (int i = 0; i < encoded.size(); i++) {
+                if (encoded.getBit(i)) {
+                    current = current->right;
+                } else {
+                    current = current->left;
+                }
+
+                if (current->isLeaf()) {
+                    decoded += current->character;
+                    current = root;
+                }
+            }
+        }
+        return decoded;
     }
 
     const std::map<char, BitSet>& getCodes() const {

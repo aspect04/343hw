@@ -30,14 +30,15 @@ private:
     const int dc[4] = {0, 0, -1, 1};
 
     bool isValid(int r, int c) {
-        return r >= 0 && r < rows && c >= 0 && c < cols;
+        if (r < 0 || r >= rows) return false;
+        return c >= 0 && c < (int)map[r].size();
     }
 
     int getCost(char cell) {
         if (cell == ' ' || cell == 'F' || cell == '%') return 1;
         if (cell == 'Y') return 4;
         if (cell == '#') return INT_MAX; // Impassable
-        return 1; // Default
+        return 1; // Treat unknown characters as regular floor
     }
 
     bool findStartAndGoal() {

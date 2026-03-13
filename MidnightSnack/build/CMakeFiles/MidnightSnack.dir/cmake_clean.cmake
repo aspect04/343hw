@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/MidnightSnack.dir/TestCases.cpp.o"
+  "CMakeFiles/MidnightSnack.dir/TestCases.cpp.o.d"
   "CMakeFiles/MidnightSnack.dir/main.cpp.o"
   "CMakeFiles/MidnightSnack.dir/main.cpp.o.d"
   "MidnightSnack"

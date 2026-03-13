@@ -3,8 +3,5 @@ project(HuffmanCoding)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# Main assignment executable
-add_executable(HuffmanCoding main.cpp)
-
-# Test executable
-add_executable(tests TestCases.cpp)
+# Main assignment executable (includes tests)
+add_executable(HuffmanCoding main.cpp TestCases.cpp)

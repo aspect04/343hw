@@ -9,6 +9,8 @@
 
 using namespace std;
 
+int testMain();
+
 // Structure for sorting codes by length then character
 struct CodeEntry {
     char character;
@@ -25,7 +27,9 @@ bool compareCodeEntries(const CodeEntry& a, const CodeEntry& b) {
 
 void printCodeTable(const map<char, BitSet>& codes) {
     vector<CodeEntry> entries;
-    for (const auto& [ch, code] : codes) {
+    for (const auto& pair : codes) {
+        char ch = pair.first;
+        const BitSet& code = pair.second;
         entries.push_back({ch, code.size(), code});
     }
 
@@ -37,9 +41,9 @@ void printCodeTable(const map<char, BitSet>& codes) {
     for (const auto& entry : entries) {
         // Handle special characters for display
         if (entry.character == '\n') {
-            cout << "  \\n   | ";
+            cout << "  \n   | ";
         } else if (entry.character == '\t') {
-            cout << "  \\t   | ";
+            cout << "  \t   | ";
         } else if (entry.character == ' ') {
             cout << " space | ";
         } else {
@@ -101,6 +105,13 @@ int main() {
     cout << "\nCompressed size: " << bitsCompressed << " bits (" << bytesCompressed << " bytes)\n";
     cout << "Uncompressed size: " << bitsUncompressed << " bits (" << passage.length() << " bytes)\n";
     cout << "Compression ratio: " << fixed << setprecision(4) << compressionRatio << "\n";
+
+
+    cout << "\n\n";
+
+    testMain();
+
+
 
     return 0;
 }

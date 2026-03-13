@@ -39,7 +39,7 @@ void runTest(const string& testName, const vector<string>& map, bool shouldFindP
     }
 }
 
-int main() {
+int runMidnightSnackTests() {
     cout << "Running Midnight Snack Pathfinding Tests..." << endl;
     cout << "============================================" << endl;
 
@@ -159,6 +159,44 @@ int main() {
         "#####"
     };
     runTest("Only Yellow Path Available", test10, true, 13);
+
+    // Test 11: Missing Start (F)
+    vector<string> test11 = {
+        "#####",
+        "#   #",
+        "#  %#",
+        "#####"
+    };
+    runTest("Missing Start (F)", test11, false);
+
+    // Test 12: Missing Goal (%)
+    vector<string> test12 = {
+        "#####",
+        "#F  #",
+        "#   #",
+        "#####"
+    };
+    runTest("Missing Goal (%)", test12, false);
+
+    // Test 13: Irregular row lengths
+    vector<string> test13 = {
+        "#######",
+        "#F    #",
+        "# ####",
+        "#    %",
+        "####"
+    };
+    runTest("Irregular Row Lengths", test13, true);
+
+    // Test 14: Unknown characters (treated as floor)
+    vector<string> test14 = {
+        "#####",
+        "#F? #",
+        "# X #",
+        "#  %#",
+        "#####"
+    };
+    runTest("Unknown Characters", test14, true, 4);
 
     cout << "\n========================================" << endl;
     cout << "All tests passed successfully!" << endl;

@@ -205,7 +205,9 @@ void testRepeatedPattern() {
     auto codes = tree.getCanonicalCodes();
 
     cout << "  Character codes:\n";
-    for (const auto& [ch, code] : codes) {
+    for (const auto& pair : codes) {
+        char ch = pair.first;
+        const BitSet& code = pair.second;
         cout << "    " << ch << ": " << code.toBinaryString()
              << " (freq: " << frequencies[ch] << ")\n";
     }
@@ -216,7 +218,127 @@ void testRepeatedPattern() {
     cout << "  Compression ratio: " << (double)encoded.size() / decoded_size << "\n";
 }
 
-int main() {
+void testRoundTrip() {
+    cout << "\n========== TEST 8: Round-Trip (Self-Consistency) ==========\n";
+    string passages[] = {
+        "The quick brown fox jumps over the lazy dog.",
+        "AAAABBBCCCDDEEF",
+        "1234567890!@#$%^&*()",
+        "Line 1\nLine 2\tTabbed"
+    };
+
+    for (const string& passage : passages) {
+        HuffmanTree tree;
+        auto freqs = tree.countFrequencies(passage);
+        tree.buildTree(freqs);
+        tree.generateCodes();
+        tree.generateCanonicalCodes();
+
+        // Test standard codes
+        BitSet encoded = tree.encodeText(passage, false);
+        string decoded = tree.decodeText(encoded, false);
+        cout << "  Standard Round-Trip (\"" << (passage.length() > 20 ? passage.substr(0,17)+"..." : passage) << "\"): ";
+        if (decoded == passage) cout << "PASSED\n";
+        else cout << "FAILED (Got: " << decoded << ")\n";
+
+        // Test canonical codes
+        BitSet encodedCan = tree.encodeText(passage, true);
+        string decodedCan = tree.decodeText(encodedCan, true);
+        cout << "  Canonical Round-Trip: ";
+        if (decodedCan == passage) cout << "PASSED\n";
+        else cout << "FAILED\n";
+    }
+}
+
+void testEmptyString() {
+    cout << "\n========== TEST 9: Empty String ==========\n";
+    HuffmanTree tree;
+    string passage = "";
+    auto freqs = tree.countFrequencies(passage);
+    tree.buildTree(freqs);
+    tree.generateCodes();
+    
+    BitSet encoded = tree.encodeText(passage);
+    string decoded = tree.decodeText(encoded);
+    
+    cout << "  Empty string handling: ";
+    if (encoded.size() == 0 && decoded == "") cout << "PASSED\n";
+    else cout << "FAILED\n";
+}
+
+void testAll256Characters() {
+    cout << "\n========== TEST 10: All 256 ASCII Characters ==========\n";
+    string passage = "";
+    for (int i = 0; i < 256; i++) {
+        passage += (char)i;
+    }
+
+    HuffmanTree tree;
+    auto freqs = tree.countFrequencies(passage);
+    tree.buildTree(freqs);
+    tree.generateCodes();
+    tree.generateCanonicalCodes();
+
+    BitSet encoded = tree.encodeText(passage, true);
+    string decoded = tree.decodeText(encoded, true);
+
+    cout << "  256-char Round-Trip: ";
+    if (decoded == passage) cout << "PASSED\n";
+    else cout << "FAILED\n";
+}
+
+void testBitBoundaries() {
+    cout << "\n========== TEST 11: Bit Boundaries ==========\n";
+    
+    // Test 8 bits
+    BitSet b8;
+    for (int i = 0; i < 8; i++) b8.append(true);
+    cout << "  8 bits: " << b8.size() << " bits, " << b8.sizeInBytes() << " bytes (Expected 8, 1): ";
+    if (b8.size() == 8 && b8.sizeInBytes() == 1) cout << "PASSED\n";
+    else cout << "FAILED\n";
+
+    // Test 9 bits
+    BitSet b9;
+    for (int i = 0; i < 9; i++) b9.append(true);
+    cout << "  9 bits: " << b9.size() << " bits, " << b9.sizeInBytes() << " bytes (Expected 9, 2): ";
+    if (b9.size() == 9 && b9.sizeInBytes() == 2) cout << "PASSED\n";
+    else cout << "FAILED\n";
+
+    // Test 16 bits
+    BitSet b16;
+    for (int i = 0; i < 16; i++) b16.append(true);
+    cout << "  16 bits: " << b16.size() << " bits, " << b16.sizeInBytes() << " bytes (Expected 16, 2): ";
+    if (b16.size() == 16 && b16.sizeInBytes() == 2) cout << "PASSED\n";
+    else cout << "FAILED\n";
+}
+
+void testUnbalancedTree() {
+    cout << "\n========== TEST 12: Highly Unbalanced Tree ==========\n";
+    // Frequencies: A=1, B=2, C=4, D=8, E=16, F=32, G=64
+    string passage = "";
+    int count = 1;
+    for (char c = 'A'; c <= 'G'; c++) {
+        for (int i = 0; i < count; i++) passage += c;
+        count *= 2;
+    }
+
+    HuffmanTree tree;
+    auto freqs = tree.countFrequencies(passage);
+    tree.buildTree(freqs);
+    tree.generateCodes();
+    
+    auto codes = tree.getCodes();
+    cout << "  Deepest code length ('A'): " << codes['A'].size() << " (Expected 6): ";
+    if (codes['A'].size() == 6) cout << "PASSED\n";
+    else cout << "FAILED (Got " << codes['A'].size() << ")\n";
+
+    string decoded = tree.decodeText(tree.encodeText(passage));
+    cout << "  Unbalanced Round-Trip: ";
+    if (decoded == passage) cout << "PASSED\n";
+    else cout << "FAILED\n";
+}
+
+int testMain() {
     cout << "\n";
     cout << "╔════════════════════════════════════════════════════╗\n";
     cout << "║          HUFFMAN CODING TEST SUITE                 ║\n";
@@ -229,6 +351,11 @@ int main() {
     testWithSpacesAndPunctuation();
     testLongerText();
     testRepeatedPattern();
+    testRoundTrip();
+    testEmptyString();
+    testAll256Characters();
+    testBitBoundaries();
+    testUnbalancedTree();
 
     cout << "\n";
     cout << "╔════════════════════════════════════════════════════╗\n";
